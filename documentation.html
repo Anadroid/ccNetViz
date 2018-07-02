@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <!--<script src="app/banner.js"></script>-->
+    <script src="js/react-with-addons-0.13.3.min.js"></script>
+    <script src="js/immutable-3.7.3.min.js"></script>
+    <script src="js/ccNetViz-1.0.0.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+    <title>Documentation</title>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="index.html">Home</a>
+            <a class="active" href="#home">Getting started</a>
+            <a href="references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Example 1</a>
+                    <a href="#">Example 2</a>
+                    <a href="#">Example 3</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Layouts <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Layout 1</a>
+                    <a href="#">Layout 2</a>
+                    <a href="#">Layout 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Getting started</h3>
+        <div class="textDivDoc">Start by downloading the library <a href="https://github.com/helikarlab/ccNetViz/zipball/master">here</a>. Once you unzip the file that you downloaded, the ready to use library is in the <i>dist</i> folder and you can use it by including in your code:
+            <br>
+            <xmp>
+                <script src="dist/ccNetViz.js"></script>
+            </xmp>
+            <br>
+        </div>
+        <h3>Example</h3>
+        <div class="textDivDoc">Try out this simple example to get you started. The graph on the left is the output. To see in more detail what each function does, go to <a href="references.html">References</a> </div>
+        <xmp class="codeDiv">
+            <!DOCTYPE html>
+            <html>
+
+            <head>
+                <title>ccNetViz example</title>
+                <style type="text/css">
+                #container {
+                    width: 500px;
+                    height: 500px;
+                }
+                </style>
+                <script src="dist/ccNetViz.js"></script>
+            </head>
+
+            <body>
+                <canvas id="container" />
+                <script>
+                var graph = new ccNetViz(document.getElementById('container'), {
+                    styles: {
+                        node: { texture: "images/node.png", label: { hideSize: 16 } },
+                        edge: { arrow: { texture: "images/arrow.png" } }
+                    }
+                });
+                var nodes = [
+                    { label: "Hello" },
+                    { label: "World" },
+                    { label: "!" }
+                ];
+                var edges = [
+                    { source: nodes[0], target: nodes[1] },
+                    { source: nodes[1], target: nodes[2] },
+                    { source: nodes[2], target: nodes[1] }
+                ];
+                graph.set(nodes, edges, "force");
+                graph.draw();
+                </script>
+            </body>
+
+            </html>
+        </xmp>
+        <div id="contDiv">
+            <canvas id="container" />
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2018 Helikar Lab
+    </div>
+    <script>
+    var graph = new ccNetViz(document.getElementById('container'), {
+        styles: {
+            node: { texture: "images/node.png", label: { hideSize: 16 } },
+            edge: { arrow: { texture: "images/arrow.png" } }
+        }
+    });
+    var nodes = [
+        { label: "Hello" },
+        { label: "World" },
+        { label: "!" }
+    ];
+    var edges = [
+        { source: nodes[0], target: nodes[1] },
+        { source: nodes[1], target: nodes[2] },
+        { source: nodes[2], target: nodes[1] }
+    ];
+    graph.set(nodes, edges, "force");
+    graph.draw();
+
+    var currDiv;
+
+    function showRefDesc(idNew) {
+        var oldDiv = document.getElementById("idOld");
+        var newDiv = document.getElementById("idNew");
+        currDiv.style.display = "none";
+        newDiv.style.display = "block";
+        currDiv = newDiv;
+    }
+    </script>
+</body>
+
+</html>

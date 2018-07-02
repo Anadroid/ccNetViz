@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <!--<script src="app/banner.js"></script>-->
+    <script src="js/react-with-addons-0.13.3.min.js"></script>
+    <script src="js/immutable-3.7.3.min.js"></script>
+    <script src="js/ccNetViz-1.0.0.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+    <title>References</title>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+        	<a href="index.html">Home</a>
+            <a href="documentation.html">Getting started</a>
+            <a class="active" href="references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Example 1</a>
+                    <a href="#">Example 2</a>
+                    <a href="#">Example 3</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Layouts <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Layout 1</a>
+                    <a href="#">Layout 2</a>
+                    <a href="#">Layout 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h3>References</h3>
+        <div class="textDiv">
+            <div id="divRef">
+                <a id="initA" onclick="showRefDesc('ref1', this)" href="#" class="active">ccNetViz(element, options)</a>
+                <br>
+                <a onclick="showRefDesc('ref2', this)" href="#">set(nodes, edges, layout)</a>
+                <br>
+                <a onclick="showRefDesc('ref3', this)" href="#">find(x, y, radius, nodes, edges)</a>
+                <br>
+                <a onclick="showRefDesc('ref4', this)" href="#">findArea(x1, y1, x2, y2, nodes, edges)</a>
+                <br>
+                <a onclick="showRefDesc('ref5', this)" href="#">draw()</a>
+                <br>
+                <a onclick="showRefDesc('ref6', this)" href="#">resize()</a>
+                <br>
+                <a onclick="showRefDesc('ref7', this)" href="#">resetView()</a>
+                <br>
+                <a onclick="showRefDesc('ref8', this)" href="#">setViewport(viewport)</a>
+                <br>
+                <a onclick="showRefDesc('ref9', this)" href="#">cntShownNodes()</a>
+                <br>
+                <a onclick="showRefDesc('ref10', this)" href="#">cntShownEdges()</a>
+                <br>
+                <a onclick="showRefDesc('ref11', this)" href="#">remove()</a>
+                <br>
+                <a onclick="showRefDesc('ref12', this)" href="#">nodes</a>
+                <br>
+                <a onclick="showRefDesc('ref13', this)" href="#">edges</a>
+            </div>
+            <div id="divRefDesc">
+                <div id="ref1" style="display: block;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Creates new styled ccNetViz graph renderer attached to canvas element.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>element</td>
+                            <td>canvas element to which the graph will be attached</td>
+                        </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>styling parameters for the graph</td>
+                        </tr>
+                    </table>
+                    <h5>Example</h5>
+                    <p>/* tbd */</p>
+                </div>
+                <div id="ref2" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Sets the data to be displayed by given ccNetViz instance.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>nodes</td>
+                            <td>an array of objects describing graph nodes. Each node can have following properties:
+                                <br>
+                                <br> label (optional): text label for given node (displayed if node labels are enabled by node label style)
+                                <br> x, y (optional): predefined position for given node (if "layout" argument is not specified these positions will be used for graph layout)
+                                <br> color (optional): ccNetViz.color object defining color for this given node (use this in case of coloring each node separately, for coloring groups of nodes use color property of node style)
+                                <br> style (optional): name of custom style class used for this node (for example: "nodeBlue" see above section for how to define custom styles)
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>edges</td>
+                            <td>an array of objects describing directed graph edges. Each edge has following properties:
+                                <br>
+                                <br> source: pointer to given source node object
+                                <br> target: pointer to given target node object
+                                <br> style (optional): name of custom style class used for this edge
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>layout (optional)</td>
+                            <td>defines layout used to render this graph. Possible values: "force", "random", "circular", "tree". If not specified, positions are taken from each node x, y properties.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref3" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc"></p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>x</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>y</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>radius</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>nodes</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>edges</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref4" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc"></p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>x1</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>y1</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x2</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>y2</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>nodes</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>edges</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref5" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Renders current data.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref6" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Adjust graph for current canvas size.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref7" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Reset zoom and panning.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref8" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Set graph viewport. </p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>viewport</td>
+                            <td>an object with keys to modify (all of keys are optional)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref9" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Get number of nodes</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref10" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Get number of edges</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref11" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Clear graph and remove internal events from DOM.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref12" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Property to access nodes data of given graph. Use this just to read current values, for modification use "set" method instead.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="ref13" style="display: none;">
+                    <h5>Description</h5>
+                    <p class="pDesc">Property to access edges data of given graph. Use this just to read current values, for modification use "set" method instead.</p>
+                    <h5>Parameters</h5>
+                    <table class="tablePar">
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2018 Helikar Lab
+    </div>
+    <script>
+    var currDiv = document.getElementById("ref1");
+    var currA = document.getElementById("initA");
+
+    function showRefDesc(idNew, aNew) {
+        var newDiv = document.getElementById(idNew);
+        currDiv.style.display = "none";
+        newDiv.style.display = "block";
+        aNew.className = 'active';
+        currA.classList.remove('active');
+        currA = aNew;
+        currDiv = newDiv;
+    }
+    </script>
+</body>
+
+</html>
