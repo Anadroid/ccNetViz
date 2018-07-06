@@ -270,6 +270,7 @@ h5 {
 h3 {
     font-size: 24px;
     padding-left: 30px;
+    font-weight: normal;
 }
 
 .textDiv,
@@ -294,11 +295,18 @@ h3 {
     background-color: #eee;
     border: 1px solid #999;
     display: inline-block;
-    margin-left: 30px;
-    margin-top: 30px;
-    padding-right: 100px;
+    margin: 30px;
+    padding-right: 50px;
+    padding-left: 50px;
 }
 
+.htmlCodeDiv {
+    background-color: #eee;
+    border: 1px solid #999;
+    display: inline-block;
+    margin: 30px;
+    padding-right: 100px;
+}
 
 
 /* Graph */
@@ -321,7 +329,7 @@ h3 {
     width: 25%;
 }
 
-#divRefDesc {
+.divRefDesc {
     width: 50%;
     margin-left: 50px;
 }
@@ -356,3 +364,21 @@ h3 {
     vertical-align: top;
     padding-bottom: 20px;
 }
+
+
+/* Complex example */
+#divBody {
+    margin-left: 50px;
+}
+
+#report {
+    line-height: 25px;
+}
+
+
+/* code formatting */
+pre {
+    margin: 0;
+    white-space: pre-line;
+}
+

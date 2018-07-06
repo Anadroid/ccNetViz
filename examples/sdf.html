@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz example of different styling</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #containerMain {
+        width: 600px;
+        height: 600px;
+        border: 1px solid black;
+        margin-left: 30px;
+        margin-top: 30px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+    }
+
+    #body {
+        display: inline-block;
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Using SDF font</h3>
+        <div class="textDiv">Example with Signed distance field fonts which is using protocol buffer based SDF atlas format.</div>
+        <div class="textDiv">
+            We have prepared for you several fonts at our <a href='http://helikarlab.github.io/ccNetViz/fonts/'>github io page</a> or you can generate your own pbf file using <a href='https://github.com/saskaale/node-fontnik'>node-fontnik</a> tool.
+        </div>
+        <br />
+        <div id='body'>
+            <canvas id="containerMain"></canvas>
+        </div>
+    </div>
+    <script>
+    var data = {};
+
+    function init() {
+        $.ajax({ url: 'data/graph-10-2.json', dataType: 'json' }).done(dataLoaded);
+    };
+
+    function dataLoaded(d) {
+        data = d;
+        showGraph();
+    }
+
+    function showGraph() {
+        var startTime = new Date();
+
+        var conf = {
+            styles: {
+                background: {
+                    color: "rgb(255, 255, 255)"
+                },
+                node: {
+                    minSize: 6,
+                    maxSize: 16,
+                    color: "rgb(255, 0, 0)",
+                    texture: "images/circle.png",
+                    label: {
+                        color: "rgb(120, 120, 120)",
+                        size: 14,
+                        font: {
+                            type: "sdf",
+                            pbf: "http://helikarlab.github.io/ccNetViz/fonts/FineHand/0-65535.pbf",
+                        }
+                    }
+                },
+                edge: {
+                    width: 1,
+                    color: "rgb(204, 204, 204)",
+                    arrow: {
+                        minSize: 6,
+                        maxSize: 16,
+                        aspect: 1,
+                        texture: "images/arrow.png",
+                        hideSize: 1
+                    }
+                }
+            }
+        };
+
+        var el = document.getElementById('containerMain');
+        var graph = new ccNetViz(el, conf);
+        graph.set(data.nodes, data.edges, "force");
+        graph.draw();
+
+        $('#nodesCnt').text(data.nodes.length);
+        $('#edgesCnt').text(data.edges.length);
+        $('#renderedIn').text(Math.round((new Date().getTime() - startTime.getTime()) * 10) / 10);
+    }
+
+    $(init);
+    </script>
+</body>
+
+</html>

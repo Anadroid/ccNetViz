@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz example</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #containerMain {
+        width: 700px;
+        height: 300px;
+        cursor: crosshair;
+        margin-left: 30px;
+        margin-top: 30px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Interactivity for mouse hover</h3>
+        <div class="textDiv">Move mouse over node or edge to make them blue</div>
+        <canvas id="containerMain"></canvas>
+        <div id='searchReport' />
+    </div>
+    <script>
+    var el = document.getElementById('containerMain');
+    var graph = new ccNetViz(el, {
+        styles: {
+            node: { texture: "images/node_bw.png", label: { hideSize: 16 } },
+            edge: { arrow: { texture: "images/arrow.png" } },
+            edgeHover: {
+                color: "rgb(0, 0, 255)"
+            },
+            nodeHover: {
+                texture: "images/node.png",
+                label: { hideSize: 16 }
+            }
+        }
+    });
+    var nodes = [
+        { label: "Hello" },
+        { label: "World" },
+        { label: "!" }
+    ];
+    var edges = [
+        { source: nodes[0], target: nodes[1] },
+        { source: nodes[1], target: nodes[0] },
+        { source: nodes[0], target: nodes[0] },
+        { source: nodes[1], target: nodes[2] },
+    ];
+
+    graph.set(nodes, edges, "force");
+    graph.draw();
+
+
+    function onEdgeIn(e) {
+        e.style = 'edgeHover';
+        graph.updateEdge(e).applyChanges();
+    }
+
+    function onEdgeOut(e) {
+        if (e.style !== undefined)
+            delete e.style;
+
+        graph.updateEdge(e).applyChanges();
+    }
+
+    function onNodeIn(n) {
+        n.style = 'nodeHover';
+        graph.updateNode(n).applyChanges();
+    }
+
+    function onNodeOut(n) {
+        if (n.style !== undefined)
+            delete n.style;
+
+        graph.updateNode(n).applyChanges();
+    }
+
+
+    class ccNetVizElementsEvents {
+        constructor(params) {
+            this.onNodeOut = params.onNodeOut || function() {};
+            this.onEdgeOut = params.onEdgeOut || function() {};
+            this.onNodeIn = params.onNodeIn || function() {};
+            this.onEdgeIn = params.onEdgeIn || function() {};
+
+            this.lastOnHover = { nodes: [], edges: [] };
+        }
+        onMove(result) {
+            var currentHover = {};
+
+            $.each([{ arr: 'nodes', el: 'node', onOut: this.onNodeOut, onIn: this.onNodeIn }, { arr: 'edges', el: 'edge', onOut: this.onEdgeOut, onIn: this.onEdgeIn }], function(i, e) {
+                var arr = e.arr;
+                var el = e.el;
+
+
+                for (var i = 0; i < result[arr].length; i++) {
+                    var n = result[arr][i][el];
+                    var index;
+
+                    if ((index = lastOnHover[arr].indexOf(n)) < 0) {
+                        index = lastOnHover[arr].length;
+                        lastOnHover[arr].push(n);
+                        e.onIn(n);
+                    }
+
+                    currentHover[index] = true;
+                }
+
+                var n = [];
+                for (var i = 0; i < lastOnHover[arr].length; i++) {
+                    if (currentHover[i] !== true) {
+                        e.onOut(lastOnHover[arr][i]);
+                    } else {
+                        n.push(lastOnHover[arr][i]);
+                    }
+                }
+
+                lastOnHover[arr] = n;
+            });
+        }
+    };
+
+    var events = new ccNetVizElementsEvents({ onNodeIn: onNodeIn, onEdgeIn: onEdgeIn, onNodeOut: onNodeOut, onEdgeOut: onEdgeOut });
+
+    var lastOnHover = { nodes: [], edges: [] };
+
+    el.addEventListener('mousemove', function(e) {
+        var bb = el.getBoundingClientRect();
+
+        var x = e.clientX - bb.left;
+        var y = e.clientY - bb.top;
+        var radius = 5;
+
+        var lCoords = graph.getLayerCoords({ radius: radius, x: x, y: y });
+        var result = graph.find(lCoords.x, lCoords.y, lCoords.radius, true, true);
+        events.onMove(result);
+
+    });
+    </script>
+</body>
+
+</html>

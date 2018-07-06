@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz complex graphs example</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #container {
+        width: 500px;
+        height: 500px;
+        cursor: crosshair;
+    }
+
+    #body {
+        display: inline-block;
+    }
+
+    #info {
+        /*      float: right;*/
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Layouts <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Layout 1</a>
+                    <a href="#">Layout 2</a>
+                    <a href="#">Layout 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Edges to edges example</h3>
+        <div id='body'>
+            <canvas id="container"></canvas>
+        </div>
+        <div id='searchReport' />
+    </div>
+    <script>
+    $(function() {
+        var el = document.getElementById('container');
+        var graph = new ccNetViz(el, {
+            styles: {
+                node: { texture: "images/node_bw.png", label: { hideSize: 16 } },
+                edge: { arrow: { texture: "images/arrow.png" } },
+                edgeHover: {
+                    color: "rgb(0, 0, 255)"
+                },
+                nodeHover: {
+                    texture: "images/node.png",
+                    label: { hideSize: 16 }
+                }
+            }
+        });
+        var nodes = [
+            { label: "Hello" },
+            { label: "World" },
+            { label: "!" }
+        ];
+
+        var e = { source: nodes[0], target: nodes[1] };
+        var e2 = { source: nodes[1], target: nodes[0] };
+        var e3 = { source: nodes[1], target: nodes[2] };
+        var e4 = { source: nodes[0], target: nodes[0] };
+
+        var edges = [
+            e,
+            e2,
+            e3,
+            e4,
+            { source: nodes[2], target: e2 },
+            { source: nodes[0], target: e3 },
+            { source: e2, target: nodes[2] },
+            { source: nodes[2], target: e4 },
+            { source: e2, target: e2 },
+            { source: e3, target: e3 },
+            { source: e4, target: e4 }
+        ];
+
+        graph.set(nodes, edges, "force");
+        graph.draw();
+
+        el.addEventListener('mouseup', function(e) {
+            var bb = el.getBoundingClientRect();
+
+            var x = e.clientX - bb.left;
+            var y = e.clientY - bb.top;
+            var radius = 5;
+
+            var x1 = x - radius;
+            var y1 = y - radius;
+            var x2 = x + radius;
+            var y2 = y + radius;
+
+            var lCoords = graph.getLayerCoords({ x1: x1, y1: y1, x2: x2, y2: y2 });
+            var result = graph.findArea(lCoords.x1, lCoords.y1, lCoords.x2, lCoords.y2, true, true);
+
+            var reportel = document.getElementById("searchReport");
+            reportel.style.display = 'block';
+            var html = "<div>Search for [" + x + "," + y + "] px:</div>";
+            html += "<div>Nodes: " + result.nodes.length + "</div>";
+            html += "<div>Edges: " + result.edges.length + "</div>";
+            reportel.innerHTML = html;
+        });
+
+
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz user defined layout example</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #containerMain {
+        width: 500px;
+        height: 500px;
+        margin-left: 30px;
+        margin-top: 30px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+    </style>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>UserDef layout example</h3>
+        <div class="textDiv">In this example, all nodes are manually positioned with x and y attributes.</div>
+        <br />
+        <canvas id="containerMain"></canvas>
+    </div>
+    <script>
+    var el = document.getElementById('containerMain');
+    var graph = new ccNetViz(el, {
+        styles: {
+            node: { texture: "images/node.png", label: { hideSize: 16 } },
+            edge: { arrow: { texture: "images/arrow.png" } }
+        }
+    });
+    var nodes = [
+        { label: "Hello", x: 0, y: 1 },
+        { label: "World", x: 1, y: 1 },
+        { label: "!", x: 0.5, y: 0 },
+        { label: "I am in center", x: 0.5, y: 0.5 },
+        { label: "Right bottom corner", x: 1, y: 0 },
+    ];
+    var edges = [
+        { source: nodes[0], target: nodes[1] },
+        { source: nodes[1], target: nodes[0] },
+        { source: nodes[0], target: nodes[0] },
+        { source: nodes[1], target: nodes[2] },
+        { source: nodes[2], target: nodes[4] }
+    ];
+    graph.set(nodes, edges);
+    graph.draw();
+    </script>
+</body>
+
+</html>

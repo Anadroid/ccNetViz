@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz example for downloading image</title>
+    <link rel="stylesheet" type="text/css" href="css/spectrum.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #containerG {
+        width: 400px;
+        height: 400px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+
+    a,
+    a:visited {
+        text-decoration: none;
+        color: black;
+    }
+    /* context menu */
+
+    .context-menu {
+        display: none;
+        position: absolute;
+        z-index: 10;
+        padding: 12px 0;
+        width: 240px;
+        background-color: #fff;
+        border: solid 1px #dfdfdf;
+        box-shadow: 1px 1px 2px #cfcfcf;
+    }
+
+    .context-menu--active {
+        display: block;
+    }
+
+    .context-menu__items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .context-menu__item {
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .context-menu__item:last-child {
+        margin-bottom: 0;
+    }
+
+    .context-menu__link {
+        display: block;
+        padding: 4px 12px;
+        color: #0066aa;
+        text-decoration: none;
+    }
+
+    .context-menu__link:hover {
+        color: #fff;
+        background-color: #0066aa;
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+    <script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Context menu example</h3>
+        <div class="textDiv">Right click on the node to get a context menu</div>
+        <br />
+        <div class="textDiv">
+            <div>
+                <canvas id="containerG"></canvas>
+                <br />
+                <div id="context-menu" class="context-menu">
+                    <ul id="context-menu__items" class="context-menu__items ">
+                    </ul>
+                </div>
+            </div>
+            <div class="divRefDesc">
+                To add a context menu to the node you need to add a contextMenu attribute to the nodes declarations, which will contain an array of elements that you want in the context menu.
+                <br>
+                <br> For example (showed on the graph):
+                <br>
+                <div class="codeDiv">
+                    <pre>
+                    <code>
+                        var nodes = [
+                            { label: "Hello", contextMenu: ["Details", "More"] },
+                            { label: "World" },
+                            { label: "!" }
+                    </code>
+                </pre>
+                </div>
+                <br>
+                <br>You also need to define the event listener:
+                <br>
+                <div class="codeDiv">
+                    <pre>
+                    <code>
+                        canvas.addEventListener('contextmenu', function(e) {
+                            /* write your code here*/
+                    }
+                    </code>
+                </pre>
+                </div>
+                <br>
+                <br>And you have to add a html element for the context menu to be shown:
+                <br>
+                <div class="codeDiv">
+                    <pre>
+                    <code>
+                          &lt;div id=&quot;context-menu&quot; class=&quot;context-menu&quot;&gt;<br/>                    &lt;ul id=&quot;context-menu__items&quot; class=&quot;context-menu__items &quot;&gt;<br/>                    &lt;/ul&gt;<br/>&lt;/div&gt;
+                    </code>
+                </pre>
+                </div>
+                <br>
+                <br>You can see the full code for this example <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/context_menu.html">here</a>.
+            </div>
+        </div>
+    </div>
+    <script>
+    var canvas = document.getElementById('containerG');
+    var graph = new ccNetViz(canvas, {
+        styles: {
+            node: { texture: "images/node.png", label: { hideSize: 16 } },
+            edge: { arrow: { texture: "images/arrow.png" } }
+        }
+    });
+
+    var nodes = [
+        { label: "Hello", contextMenu: ["Details", "More"] },
+        { label: "World" },
+        { label: "!" }
+    ];
+    var edges = [
+        { source: nodes[0], target: nodes[1] },
+        { source: nodes[1], target: nodes[0] },
+        { source: nodes[0], target: nodes[0] },
+        { source: nodes[1], target: nodes[2] },
+    ];
+
+    graph.set(nodes, edges, "force");
+    graph.draw();
+
+    canvas.addEventListener('contextmenu', function(e) {
+        var bb = canvas.getBoundingClientRect();
+
+        var x = e.clientX - bb.left;
+        var y = e.clientY - bb.top;
+        var radius = 10;
+
+        var lCoords = graph.getLayerCoords({ radius: radius, x: x, y: y });
+        var result = graph.find(lCoords.x, lCoords.y, lCoords.radius, true, false);
+
+        if (result.nodes.length > 0 && result.nodes[0].node.contextMenu != null) {
+            var d = document.getElementById('context-menu');
+            var items = document.getElementById('context-menu__items');
+            var node = result.nodes[0].node;
+            var menu_lenght = node.contextMenu.length;
+            var contMenu = node.contextMenu;
+            while (items.firstChild) {
+                items.removeChild(items.firstChild);
+            }
+            for (var i = 0; i < menu_lenght; i++) {
+                let option = contMenu[i];
+                var li = document.createElement("li");
+                var node = document.createTextNode(option);
+                li.appendChild(node);
+                items.appendChild(li);
+                li.classList.add("context-menu__link");
+                li.setAttribute("id", option);
+                $("#" + option).click(function() {
+                    alert(option);
+                });
+            }
+
+            d.style.position = "absolute";
+            d.style.display = "block"
+            d.style.left = e.clientX + 'px';
+            d.style.top = e.clientY + 'px';
+
+        }
+
+        e.preventDefault();
+
+    });
+
+    canvas.addEventListener('click', function(e) {
+        var d = document.getElementById('context-menu');
+        d.style.display = "none"
+    });
+    </script>
+</body>
+
+</html>
