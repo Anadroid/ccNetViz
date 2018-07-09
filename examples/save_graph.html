@@ -10,8 +10,6 @@
     #containerMain {
         width: 500px;
         height: 500px;
-        border: 1px solid black;
-        margin-left: 30px;
         margin-top: 30px;
         border: 1px solid black;
         padding: 30px;
@@ -21,6 +19,27 @@
     a:visited {
         text-decoration: none;
         color: black;
+    }
+
+    #down_img a,
+    #down_img a:visited {
+        text-decoration: none;
+        color: white;
+    }
+
+    #downBtn {
+        background-color: #5980EC;
+        height: 36px;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin-top: 30px;
     }
     </style>
     <script src="./libs/jquery.min.js"></script>
@@ -42,6 +61,7 @@
                 <div class="dropdown-content">
                     <a href="complex.html">Different graphs</a>
                     <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
                     <a href="different_sizes.html">Different sizes</a>
                     <a href="interactivity_hover.html">Interactivity Hover</a>
                     <a href="interactivity_move.html">Interactivity Move</a>
@@ -59,12 +79,13 @@
     <div class="content">
         <h3>Downloading image example</h3>
         <div class="textDiv">Press the button below the graph if you want to dowload it as an image.</div>
-        <br />
-        <div id='body'>
-            <canvas id="containerMain"></canvas>
-            <br />
-            <button style="margin-left: 30px;"><a id="down_img">Save image</a></button>
+        <div class="textDiv">
+            <div id='body'>
+                <canvas id="containerMain"></canvas>
+            </div>
+            <button id="downBtn" style="margin-left: 30px;"><a id="down_img">Save image</a></button>
         </div>
+        <div style="margin-left: 30px; margin-top: 30px;">You can see the full code on how this is done <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/save_graph.html">here</a>.</div>
     </div>
     <script>
     function init() {

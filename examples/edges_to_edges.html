@@ -6,10 +6,12 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css" />
     <link rel="stylesheet" type="text/css" href="./css/performance.css" />
     <style type="text/css">
-    #container {
+    #containerMain {
         width: 500px;
         height: 500px;
         cursor: crosshair;
+        border: 1px solid black;
+        padding: 30px;
     }
 
     #body {
@@ -37,6 +39,7 @@
                 <div class="dropdown-content">
                     <a href="complex.html">Different graphs</a>
                     <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
                     <a href="different_sizes.html">Different sizes</a>
                     <a href="interactivity_hover.html">Interactivity Hover</a>
                     <a href="interactivity_move.html">Interactivity Move</a>
@@ -48,27 +51,26 @@
                     <a href="userdef_layout.html">Userdef layout</a>
                 </div>
             </div>
-            <div class="dropdown">
-                <button class="dropbtn">Layouts <span style="font-size: 12px;">&#9660;</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">Layout 1</a>
-                    <a href="#">Layout 2</a>
-                    <a href="#">Layout 3</a>
-                </div>
-            </div>
+            <a href="layouts.html">Layouts</a>
         </div>
     </div>
     <div class="content">
         <h3>Edges to edges example</h3>
-        <div id='body'>
-            <canvas id="container"></canvas>
+        <div class="textDiv">Click anywhere on the canvas to get nodes and edges that are closes to the point you clicked. </div>
+        <br>
+        <div class="textDiv">
+            <div id='body'>
+                <canvas id="containerMain"></canvas>
+            </div>
+            <div id='searchReport' style="margin-left: 50px;">
+            </div>
         </div>
-        <div id='searchReport' />
     </div>
+    <div style="margin-left: 30px;">
+        <br>You can see the full code for this example <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/edges_to_edges.html">here</a>.</div>
     <script>
     $(function() {
-        var el = document.getElementById('container');
+        var el = document.getElementById('containerMain');
         var graph = new ccNetViz(el, {
             styles: {
                 node: { texture: "images/node_bw.png", label: { hideSize: 16 } },

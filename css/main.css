@@ -11,12 +11,9 @@ body {
 
 
 
-
-
 /* Banner */
 
 .hero-image {
-    background-color: black;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -32,6 +29,7 @@ body {
     transform: translate(-50%, -50%);
     color: white;
     font-size: 24px;
+    z-index: 10;
 }
 
 .hero-text button {
@@ -60,12 +58,15 @@ body {
 
 
 
+
 /* Menu */
 
 .topnav {
     float: right;
     overflow: hidden;
-    background-color: black;
+    position: absolute;
+    z-index: 10;
+    right: 6px;
 }
 
 .topnav a {
@@ -87,9 +88,15 @@ body {
     display: none;
 }
 
+#aboutA,
+#featuresA {
+    cursor: pointer;
+}
 
 
-
+#featuresDiv {
+    margin-bottom: 100px;
+}
 
 
 
@@ -103,6 +110,7 @@ body {
     border-width: 0.5px;
     margin: 0 70px 0 70px;
     text-align: center;
+    box-shadow: 5px 5px #39c;
 }
 
 .flex-grid-thirds {
@@ -137,7 +145,7 @@ h5 {
 }
 
 #aboutDiv {
-    margin: 100px 0 100px 0;
+    margin: 100px 200px;
 }
 
 #aboutP {
@@ -150,13 +158,31 @@ h5 {
     bottom: 0;
     width: 100%;
     background-color: #E0E0E0;
-    color: white;
+    color: #39c;
     text-align: center;
     padding: 20px 0 20px 0;
+    font-size: 18px;
 }
 
+#footerRef {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #E0E0E0;
+    color: #39c;
+    text-align: center;
+    padding: 20px 0 20px 0;
+    font-size: 18px;
+    position: absolute;
+}
 
+.footer a {
+    text-decoration: underline;
+}
 
+.footer a:hover {
+    color: #069;
+}
 
 
 
@@ -261,6 +287,7 @@ h5 {
 
 
 
+
 /* Page Layout */
 
 .content {
@@ -289,6 +316,7 @@ h3 {
 
 
 
+
 /* Code box */
 
 .codeDiv {
@@ -297,7 +325,6 @@ h3 {
     display: inline-block;
     margin: 30px;
     padding-right: 50px;
-    padding-left: 50px;
 }
 
 .htmlCodeDiv {
@@ -308,13 +335,21 @@ h3 {
     padding-right: 100px;
 }
 
+.codeDivRef {
+    background-color: #eee;
+    border: 1px solid #999;
+    display: inline-block;
+    padding-right: 50px;
+}
+
+
 
 /* Graph */
 
 #container {
     width: 300px;
     height: 300px;
-    margin: 150px 0 0 150px;
+    margin: 100px 0 0 50px;
     padding: 20px;
 }
 
@@ -326,7 +361,7 @@ h3 {
 
 
 #divRef {
-    width: 25%;
+    width: 35%;
 }
 
 .divRefDesc {
@@ -366,7 +401,9 @@ h3 {
 }
 
 
+
 /* Complex example */
+
 #divBody {
     margin-left: 50px;
 }
@@ -376,9 +413,25 @@ h3 {
 }
 
 
+
 /* code formatting */
+
 pre {
     margin: 0;
     white-space: pre-line;
 }
 
+
+
+#startedDiv {
+    margin: 100px 200px 50px 200px;
+}
+
+#textStarted {
+    font-size: 24px;
+    text-align: center;
+}
+
+.startedEx {
+    margin: 50px 150px 100px 150px;
+}

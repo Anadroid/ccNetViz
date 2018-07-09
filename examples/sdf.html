@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css" />
     <link rel="stylesheet" type="text/css" href="./css/performance.css" />
     <style type="text/css">
-    #containerMain {
+#containerMain {
         width: 600px;
         height: 600px;
         border: 1px solid black;
@@ -15,11 +15,11 @@
         border: 1px solid black;
         padding: 30px;
     }
-    }
+}
 
-    #body {
-        display: inline-block;
-    }
+#body {
+    display: inline-block;
+}
     </style>
     <script src="./libs/jquery.min.js"></script>
     <script src="./js/ccNetViz.js"></script>
@@ -38,6 +38,7 @@
                 <div class="dropdown-content">
                     <a href="complex.html">Different graphs</a>
                     <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
                     <a href="different_sizes.html">Different sizes</a>
                     <a href="interactivity_hover.html">Interactivity Hover</a>
                     <a href="interactivity_move.html">Interactivity Move</a>
@@ -54,14 +55,12 @@
     </div>
     <div class="content">
         <h3>Using SDF font</h3>
-        <div class="textDiv">Example with Signed distance field fonts which is using protocol buffer based SDF atlas format.</div>
-        <div class="textDiv">
-            We have prepared for you several fonts at our <a href='http://helikarlab.github.io/ccNetViz/fonts/'>github io page</a> or you can generate your own pbf file using <a href='https://github.com/saskaale/node-fontnik'>node-fontnik</a> tool.
+        <div class="textDivDoc">Example with Signed distance field fonts which is using protocol buffer based SDF atlas format. <br>We have prepared for you several fonts at our <a href='http://helikarlab.github.io/ccNetViz/fonts/'>github io page</a> or you can generate your own pbf file using <a href='https://github.com/saskaale/node-fontnik'>node-fontnik</a> tool.
         </div>
-        <br />
         <div id='body'>
             <canvas id="containerMain"></canvas>
         </div>
+         <div style="margin-left: 30px; margin-top: 30px;">You can see the full code on how this is done <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/sdf.html">here</a>.</div>
     </div>
     <script>
     var data = {};
