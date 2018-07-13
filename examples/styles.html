@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz example of different styling</title>
+    <link rel="stylesheet" type="text/css" href="css/spectrum.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #containerMain {
+        width: 500px;
+        height: 500px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+
+    #divTable {
+        margin-left: 30px;
+        margin-right: 30px;
+        width: 500px;
+    }
+
+    #report {
+        width: 500px;
+    }
+
+    #body {
+        display: inline-block;
+    }
+
+    #info {
+        float: right;
+    }
+
+    pre {
+        background-color: ghostwhite;
+        border: 1px solid silver;
+        padding: 10px 20px;
+        margin: 20px;
+    }
+
+    .json-key {
+        color: brown;
+    }
+
+    .json-value {
+        color: navy;
+    }
+
+    .json-string {
+        color: olive;
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./libs/json_prettyprint.js"></script>
+    <script type="text/javascript" src="js/spectrum.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Styling graph example</h3>
+        <div class="textDiv">Example to show styling options for graph.</div>
+        <br />
+        <div class="textDiv">
+            <div id='body'>
+                <canvas id="containerMain"></canvas>
+            </div>
+            <div id="divTable">
+            <table>
+                <tr>
+                    <td>background - color</td>
+                    <td>
+                        <input id='background_color' value='rgb(255, 255, 255)'></input>
+                    </td>
+                    <!--background color of canvas, default: "rgb(255, 255, 255)"-->
+                </tr>
+                <tr>
+                    <th colspan='2'>
+                        <h3>Node</h3></th>
+                </tr>
+                <tr>
+                    <td>minSize</td>
+                    <td>
+                        <input type='number' id='node_minSize' size='2' value='6' min='1'></input>
+                        <!--minimum size of node representation in pixels, default: 6-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>maxSize</td>
+                    <td>
+                        <input type='number' id='node_maxSize' size='2' value='16' min='1'></input>
+                        <!--maximum size of node representation in pixels, default: 16-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>color</td>
+                    <td>
+                        <input id='node_color' value='rgb(255, 0, 0)'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>label - hideSize</td>
+                    <td>
+                        <input type='number' id='node_label_hideSize' size='2' value='16' min='1'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>label - color</td>
+                    <td>
+                        <input id='node_label_color' value='rgb(120, 120, 120)'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan='2'>
+                        <h3>Edge</h3></th>
+                </tr>
+                <tr>
+                    <td>width</td>
+                    <td>
+                        <input type='number' id='edge_width' size='2' value='1' min='1'></input>
+                        <!--edge width in pixels, default: 1-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>color</td>
+                    <td>
+                        <input id='edge_color' value='rgb(204, 204, 204)'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>arrow - minSize </td>
+                    <td>
+                        <input type='number' id='edge_arrow_minSize' size='2' value='6' min='1'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>arrow - maxSize</td>
+                    <td>
+                        <input type='number' id='edge_arrow_maxSize' size='2' value='16' min='1'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>arrow - aspect</td>
+                    <td>
+                        <input type='number' id='edge_arrow_aspect' size='2' value='1' min='1'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>arrow - hideSize</td>
+                    <td>
+                        <input type='number' id='edge_arrow_hideSize' size='2' value='1' min='1'></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>
+                        <select id='edge_type'>
+                            <option value='line'>line</option>
+                            <option value='dashed'>dashed</option>
+                            <option value='dotted'>dotted</option>
+                            <option value='chain-dotted'>chain-dotted</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+            </table>
+            <br />
+            <button id='showGraph'>Show graph</button>
+            </div>       
+            <div id='report'>
+                <h5 style="width: 500px;">Generated configuration object for graph:</h5>
+                <div id='confel'></div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var data = {};
+
+    function init() {
+
+        //initialize colorpickers
+        $("#node_color, #background_color, #node_label_color").spectrum({
+            preferredFormat: "rgb",
+            flat: false,
+            showInput: true,
+        });
+
+        $("#showGraph").click(showGraph);
+
+        $.ajax({ url: 'data/graph-10-3.json', dataType: 'json' }).done(dataLoaded);
+    };
+
+    function dataLoaded(d) {
+        data = d;
+        showGraph();
+    }
+
+    function transformConfig(conf, prefix) {
+        prefix = prefix || "";
+
+        for (var key in conf) {
+            if ($.isPlainObject(conf[key])) {
+                transformConfig(conf[key], prefix + key + "_");
+                continue;
+            }
+
+
+            var c = $("#" + prefix + key);
+            if (c.length > 0) {
+                var val = c.val();
+                if (val !== undefined && val != null) {
+                    if (c.attr('type') === 'number')
+                        val = parseFloat(val);
+                    conf[key] = val;
+                }
+            }
+        }
+
+    }
+
+    function showGraph() {
+        var startTime = new Date();
+
+        var styles = {
+            background: { color: 'rgb(0,0,0)' },
+            node: {
+                minSize: 8, //minimum size of node representation in pixels, default: 6
+                maxSize: 16, //maximum size of node representation in pixels, default: 16
+                color: "rgb(255, 0, 0)", //node color (combined with node image), default: "rgb(255, 255, 255)"
+                texture: "images/circle.png", //node image
+                label: {
+                    hideSize: 16,
+                    color: "rgb(120, 0, 0)" //label color, default: "rgb(120, 120, 120)"
+                }
+            },
+            edge: {
+                width: 2, //edge width in pixels, default: 1
+                color: "rgb(204, 204, 204)",
+                arrow: {
+                    minSize: 6, //minimum size of arrow in pixels, default: 6
+                    maxSize: 12, //maximum size of arrow, default: 12
+                    aspect: 2, //aspect of arrow image, default: 1
+                    texture: "images/arrow.png", //arrow image
+                    hideSize: 2 //minimum size of arrow to be displayed
+                },
+                type: 'line'
+            },
+        };
+
+        transformConfig(styles);
+
+        var conf = { styles: styles };
+
+        $("#confel").empty().append($("<pre />").html(library.json.prettyPrint(conf)));
+
+        var el = document.getElementById('containerMain');
+        var graph = new ccNetViz(el, conf);
+        graph.set(data.nodes, data.edges, "force");
+        graph.draw();
+
+        $('#nodesCnt').text(data.nodes.length);
+        $('#edgesCnt').text(data.edges.length);
+        $('#renderedIn').text(Math.round((new Date().getTime() - startTime.getTime()) * 10) / 10);
+    }
+
+    $(init);
+    </script>
+</body>
+
+</html>

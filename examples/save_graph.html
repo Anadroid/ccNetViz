@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz example for downloading image</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <link rel="stylesheet" type="text/css" href="css/spectrum.css">
+    <style type="text/css">
+    #containerMain {
+        width: 500px;
+        height: 500px;
+        margin-top: 30px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+
+    a,
+    a:visited {
+        text-decoration: none;
+        color: black;
+    }
+
+    #down_img a,
+    #down_img a:visited {
+        text-decoration: none;
+        color: white;
+    }
+
+    #downBtn {
+        background-color: #5980EC;
+        height: 36px;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin-top: 30px;
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./libs/json_prettyprint.js"></script>
+    <script type="text/javascript" src="js/spectrum.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Downloading image example</h3>
+        <div class="textDiv">Press the button below the graph if you want to dowload it as an image.</div>
+        <div class="textDiv">
+            <div id='body'>
+                <canvas id="containerMain"></canvas>
+            </div>
+            <button id="downBtn" style="margin-left: 30px;"><a id="down_img">Save image</a></button>
+        </div>
+        <div style="margin-left: 30px; margin-top: 30px;">You can see the full code on how this is done <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/save_graph.html">here</a>.</div>
+    </div>
+    <script>
+    function init() {
+        $("#showGraph").click(showGraph);
+
+        $.ajax({ url: 'data/graph-10-3.json', dataType: 'json' }).done(dataLoaded);
+    }
+
+    function dataLoaded(d) {
+        data = d;
+        showGraph();
+    }
+
+    function showGraph() {
+        var startTime = new Date();
+
+        var styles = {
+            background: {
+                color: 'rgb(255, 255, 255)'
+            },
+            node: {
+                minSize: 8, //minimum size of node representation in pixels, default: 6
+                maxSize: 16, //maximum size of node representation in pixels, default: 16
+                color: "rgb(255, 0, 0)", //node color (combined with node image), default: "rgb(255, 255, 255)"
+                texture: "images/circle.png", //node image
+                label: {
+                    hideSize: 16,
+                    color: "rgb(120, 0, 0)" //label color, default: "rgb(120, 120, 120)"
+                }
+            },
+            edge: {
+                width: 2, //edge width in pixels, default: 1
+                color: "rgb(204, 204, 204)",
+                arrow: {
+                    minSize: 6, //minimum size of arrow in pixels, default: 6
+                    maxSize: 12, //maximum size of arrow, default: 12
+                    aspect: 2, //aspect of arrow image, default: 1
+                    texture: "images/arrow.png", //arrow image
+                    hideSize: 2 //minimum size of arrow to be displayed
+                },
+                type: 'line'
+            },
+        };
+
+        var conf = {
+            styles: styles
+        };
+
+        $("#confel").empty().append($("<pre />").html(library.json.prettyPrint(conf)));
+
+        var el = document.getElementById('containerMain');
+        var graph = new ccNetViz(el, conf);
+        graph.set(data.nodes, data.edges, "force");
+        graph.draw();
+
+        $('#nodesCnt').text(data.nodes.length);
+        $('#edgesCnt').text(data.edges.length);
+        $('#renderedIn').text(Math.round((new Date().getTime() - startTime.getTime()) * 10) / 10);
+    }
+
+    /** 
+     * The event handler for the link's onclick event.
+     */
+    document.getElementById('down_img').addEventListener('click', function() {
+            downloadCanvasToImage(this, 'containerMain', 'graph.png');
+        }
+
+        , false);
+
+    /** 
+     * Function that is called from the event handler for downloading the graph as an image
+     */
+    function downloadCanvasToImage(link, canvasId, filename) {
+        link.href = document.getElementById(canvasId).toDataURL('image/png');
+        link.download = filename;
+    }
+
+    $(init);
+    </script>
+</body>
+
+</html>

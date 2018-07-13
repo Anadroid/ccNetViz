@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz layouts example</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    canvas {
+        width: 500px;
+        height: 500px;
+    }
+
+    #containerMain {
+        width: 500px;
+        height: 500px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+
+    #info {
+        /*      float: right;*/
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a class="active" href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Layouts example</h3>
+        <div class="textDiv">
+            <div id='containerMain'>
+            </div>
+            <div id='info' style="margin-left: 30px;" /> graph:
+            <select id='listExamples'></select>
+            layout:
+            <select id='listLayouts'></select>
+            <div id='report'>
+                Nodes: <span id='nodesCnt'></span>
+                <br /> Edges: <span id='edgesCnt'></span>
+                <br /> Rendered in <span id='renderedIn'></span>ms
+                <br />
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+    var examples = 'Bronchiseptica.json,EGFR.json,graph-1000-2.json,graph-10-2.json,line-1000.json,star-10.json,CD4.json,ErbB.json,graph-1000-3.json,graph-10-3.json,line-100.json,T-Cell.json,circle-1000.json,FA-BRCA.json,graph-100-1.json,HGF.json,line-10.json,T-Cell-Receptor.json,circle-100.json,fibroblast.json,graph-100-2.json,IL-1.json,macrophage.json,T-LGL-2011.json,circle-10.json,Glucose.json,graph-100-3.json,IL-6.json,star-1000.json,T-LGL.json,drosophila.json,graph-1000-1.json,graph-10-1.json,Influenza.json,star-100.json,Yeast-Apoptosis.json,tree1.json,tree2.json'.split(',');
+
+    function init() {
+        function onChange(e) {
+            var v = $(this).val();
+
+            $.ajax({ url: 'data/' + v, dataType: 'json' }).done(showGraph);
+        }
+
+        function onChange2(e) {
+            layout = $(this).val();
+            showGraph(adata);
+        }
+
+        //fill in graph names
+        var select = $("#listExamples");
+        $.each(examples, function(index, val) {
+            select.append($("<option />", { 'value': val }).text(val));
+        });
+        select.change(onChange);
+
+        //init graph with currently selected data
+        onChange.call(select);
+
+        //fill in layout names
+        var select2 = $("#listLayouts");
+        $.each(["force", "hierarchical", "hierarchical2", "circular",
+            "random", "spectral", "spectral2", "hive", "grid", "versinus"
+        ], function(index, val) {
+            select2.append($("<option />", { 'value': val }).text(val));
+        });
+        select2.change(onChange2);
+
+        //init graph with currently selected layout
+        onChange2.call(select2);
+    };
+
+    var graph;
+    var el;
+
+    function showGraph(data) {
+        adata = data;
+        if (el)
+            el.parentNode.removeChild(el);
+        document.getElementById("containerMain").appendChild(el = document.createElement("canvas"));
+
+        var startTime = new Date();
+
+        if (graph) graph.remove(); //if there was an old graph, remove its handlers from DOM content
+
+        graph = new ccNetViz(el, {
+            styles: {
+                node: { texture: "images/node_bw.png", label: { hideSize: 16 } },
+                edge: { arrow: { texture: "images/arrow.png" } }
+            }
+        });
+        if (layout == null) {
+            layout = "tree";
+        }
+        graph.set(data.nodes, data.edges, layout);
+        graph.draw();
+
+        $('#nodesCnt').text(data.nodes.length);
+        $('#edgesCnt').text(data.edges.length);
+        $('#renderedIn').text(Math.round((new Date().getTime() - startTime.getTime()) * 10) / 10);
+    }
+
+    $(init);
+    </script>
+</body>
+
+</html>

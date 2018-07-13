@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz tree layouts example</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    canvas {
+        width: 500px;
+        height: 500px;
+    }
+
+    #containerMain {
+        width: 500px;
+        height: 500px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+
+    #info {
+        /*      float: right;*/
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Tree layouts example</h3>
+        <div style="margin-left: 30px;">There are two tree layouts from which you can choose in the dropdown menu. </div>
+        <br>
+        <div class="textDiv">
+            <div id='containerMain'>
+            </div>
+            <div class="textDiv">
+                <div id='info'> graph:
+                    <div class="custom-select" style="width:200px; margin-left: 0;">
+                        <select id='listExamples'></select>
+                    </div>
+                    <br>
+                    layout:
+                    <div class="custom-select" style="width:200px; margin-left: 0;">
+                        <select id='listLayouts'></select>
+                    </div>
+                    <br>
+                    <div id='report'>
+                        Nodes: <span id='nodesCnt'></span>
+                        <br /> Edges: <span id='edgesCnt'></span>
+                        <br /> Rendered in <span id='renderedIn'></span>ms
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-left: 30px;">
+            <br>You can see the full code for this example <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/ccnetviz-page/examples/tree.html">here</a>.</div>
+    </div>
+    <script>
+    var examples = 'tree1.json,tree2.json'.split(',');
+    var layout, adata;
+
+    function closeAllSelect(elmnt) {
+        /*a function that will close all select boxes in the document,
+        except the current select box:*/
+        var x, y, i, arrNo = [];
+        x = document.getElementsByClassName("select-items");
+        y = document.getElementsByClassName("select-selected");
+        for (i = 0; i < y.length; i++) {
+            if (elmnt == y[i]) {
+                arrNo.push(i)
+            } else {
+                y[i].classList.remove("select-arrow-active");
+            }
+        }
+        for (i = 0; i < x.length; i++) {
+            if (arrNo.indexOf(i)) {
+                x[i].classList.add("select-hide");
+            }
+        }
+    }
+
+    function init() {
+        function onChange(e) {
+            var v = $(this).val();
+
+            $.ajax({ url: 'data/' + v, dataType: 'json' }).done(showGraph);
+        }
+
+        function onChange2(e) {
+            layout = $(this).val();
+
+            if (adata != null)
+                showGraph(adata);
+
+        }
+
+        //fill in graph names
+        var select = $("#listExamples");
+        $.each(examples, function(index, val) {
+            select.append($("<option />", { 'value': val }).text(val));
+        });
+        select.change(onChange);
+
+        //init graph with currently selected data
+        onChange.call(select);
+
+
+        //fill in layout names
+        var select2 = $("#listLayouts");
+        $.each(["tree", "tree2"], function(index, val) {
+            select2.append($("<option />", { 'value': val }).text(val));
+        });
+        select2.change(onChange2);
+
+        //init graph with currently selected layout
+        onChange2.call(select2);
+
+        var x, i, j, selElmnt, a, b, c;
+        /*look for any elements with the class "custom-select":*/
+        x = document.getElementsByClassName("custom-select");
+        console.log(x);
+        for (i = 0; i < x.length; i++) {
+            selElmnt = x[i].getElementsByTagName("select")[0];
+            /*for each element, create a new DIV that will act as the selected item:*/
+            a = document.createElement("DIV");
+            a.setAttribute("class", "select-selected");
+            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+            x[i].appendChild(a);
+            /*for each element, create a new DIV that will contain the option list:*/
+            b = document.createElement("DIV");
+            b.setAttribute("class", "select-items select-hide");
+            for (j = 0; j < selElmnt.length; j++) {
+                /*for each option in the original select element,
+                create a new DIV that will act as an option item:*/
+                c = document.createElement("DIV");
+                c.innerHTML = selElmnt.options[j].innerHTML;
+                c.addEventListener("click", function(e) {
+                    /*when an item is clicked, update the original select box,
+                    and the selected item:*/
+                    var y, i, k, s, h;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < s.length; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("same-as-selected");
+                            for (k = 0; k < y.length; k++) {
+                                y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "same-as-selected");
+                            break;
+                        }
+                    }
+                    h.click();
+                });
+                b.appendChild(c);
+            }
+            x[i].appendChild(b);
+            a.addEventListener("click", function(e) {
+                /*when the select box is clicked, close any other select boxes,
+                and open/close the current select box:*/
+                e.stopPropagation();
+                var v = this.innerHTML;
+                $.ajax({ url: 'data/' + v, dataType: 'json' }).done(showGraph);
+                closeAllSelect(this);
+                this.nextSibling.classList.toggle("select-hide");
+                this.classList.toggle("select-arrow-active");
+            });
+        }
+
+
+        /*if the user clicks anywhere outside the select box,
+        then close all select boxes:*/
+        document.addEventListener("click", closeAllSelect);
+    };
+
+    var graph;
+    var el;
+
+    function showGraph(data) {
+        adata = data;
+        if (el)
+            el.parentNode.removeChild(el);
+        document.getElementById("containerMain").appendChild(el = document.createElement("canvas"));
+
+        var startTime = new Date();
+
+        if (graph) graph.remove(); //if there was an old graph, remove its handlers from DOM content
+
+        graph = new ccNetViz(el, {
+            styles: {
+                node: { texture: "images/node.png", label: { hideSize: 16 } },
+                edge: { arrow: { texture: "images/arrow.png" } }
+            }
+        });
+        if (layout == null) {
+            layout = "tree";
+        }
+        graph.set(data.nodes, data.edges, layout);
+        console.log("antes do draw");
+        graph.draw();
+        console.log("depois do draw");
+
+        $('#nodesCnt').text(data.nodes.length);
+        $('#edgesCnt').text(data.edges.length);
+        $('#renderedIn').text(Math.round((new Date().getTime() - startTime.getTime()) * 10) / 10);
+    }
+
+
+
+    $(init);
+    </script>
+</body>
+
+</html>

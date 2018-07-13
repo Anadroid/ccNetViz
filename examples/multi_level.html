@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz example</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #containerMain {
+        width: 500px;
+        height: 500px;
+        cursor: crosshair;
+        margin-left: 30px;
+        margin-top: 30px;
+        border: 1px solid black;
+    }
+    </style>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Multi level graph example</h3>
+        <div class="textDiv">To enter to deeper node, click on node "Hello" or "World". Then use right button on mouse for going back.</div>
+        <canvas id="containerMain"></canvas>
+        <div style="margin-left: 30px; margin-top: 30px;">You can see the full code on how this is done <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/multi_level.html">here</a>.</div>
+        <div id='searchReport' />
+    </div>
+    <script>
+    var el = document.getElementById('containerMain');
+    var graph = new ccNetVizMultiLevel(el, {
+        styles: {
+            node: { texture: "images/node.png", label: { hideSize: 16 } },
+            edge: { arrow: { texture: "images/arrow.png" } }
+        }
+    });
+
+
+    var nodes1 = [
+        { label: "Node1 of subgraph1" },
+        { label: "Node2 of subgraph1" },
+    ];
+    var edges1 = [
+        { source: nodes1[0], target: nodes1[1] },
+        { source: nodes1[0], target: nodes1[0] },
+        { source: nodes1[1], target: nodes1[0] },
+    ];
+
+
+    var nodes2 = [
+        { label: "Node1 of subgraph2" },
+        { label: "Node2 of subgraph2" },
+        { label: "Node3 of subgraph2" },
+        { label: "Node4 of subgraph2" },
+        { label: "Node5 of subgraph2" },
+    ];
+    var edges2 = [
+        { source: nodes2[0], target: nodes2[1] },
+        { source: nodes2[0], target: nodes2[0] },
+        { source: nodes2[1], target: nodes2[0] },
+        { source: nodes2[3], target: nodes2[4] },
+    ];
+
+
+    var nodes = [
+        { label: "Hello", nodes: nodes2, edges: edges2 },
+        { label: "World", nodes: nodes1, edges: edges1 },
+        { label: "!" }
+    ];
+    var edges = [
+        { source: nodes[0], target: nodes[1] },
+        { source: nodes[1], target: nodes[0] },
+        { source: nodes[0], target: nodes[0] },
+        { source: nodes[1], target: nodes[2] },
+    ];
+
+    graph.set(nodes, edges, "force");
+    graph.draw();
+    </script>
+</body>
+
+</html>

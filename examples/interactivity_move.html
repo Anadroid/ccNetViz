@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ccNetViz example</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
+    <style type="text/css">
+    #containerMain {
+        width: 500px;
+        height: 500px;
+        cursor: auto;
+        margin-left: 30px;
+        margin-top: 30px;
+        border: 1px solid black;
+        padding: 30px;
+    }
+    </style>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./libs/jquery.throttle-debounce.min.js"></script>
+    <script src="./js/ccNetViz.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <span id="docSpan">Documentation</span>
+        <div class="header-right">
+            <a href="../index.html">Home</a>
+            <a href="../documentation.html">Getting started</a>
+            <a href="../references.html">References</a>
+            <div class="dropdown">
+                <button class="dropbtn" style="background-color: #5980EC; color: white;">Examples <span style="font-size: 12px;">&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="complex.html">Different graphs</a>
+                    <a href="context_menu.html">Context menu</a>
+                    <a href="edges_to_edges.html">Edges to edges</a>
+                    <a href="different_sizes.html">Different sizes</a>
+                    <a href="interactivity_hover.html">Interactivity Hover</a>
+                    <a href="interactivity_move.html">Interactivity Move</a>
+                    <a href="multi_level.html">Multi level</a>
+                    <a href="save_graph.html">Save graph</a>
+                    <a href="sdf.html">Sdf</a>
+                    <a href="styles.html">Styles</a>
+                    <a href="tree.html">Tree</a>
+                    <a href="userdef_layout.html">Userdef layout</a>
+                </div>
+            </div>
+            <a href="layouts.html">Layouts</a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Move node example</h3>
+        <div class="textDiv">Drag any node.</div>
+        <canvas id="containerMain"></canvas>
+        <div id='searchReport' />
+        <div style="margin-left: 30px; margin-top: 30px;">You can see the full code on how this is done <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/interactivity_move.html">here</a>.</div>
+    </div>
+    <script>
+    function init() {
+        $.ajax({ url: 'data/graph-1000-3.json', dataType: 'json' }).done(dataLoaded);
+    }
+
+    var el = document.getElementById('containerMain');
+    var graph, nodes, edges;
+
+    function dataLoaded(d) {
+        graph = new ccNetViz(el, {
+            styles: {
+                node: {
+                    texture: "images/node_bw.png",
+                    label: {
+                        hideSize: 16,
+                        font: {
+                            type: "sdf",
+                            texture: "fonts/OpenSans-Regular.png",
+                            metrics: "fonts/OpenSans-Regular.json", // "null" - if the image to be generated
+                            size: 12
+                        }
+                    }
+                },
+                edge: { arrow: { texture: "images/arrow.png" } },
+                edgeHover: {
+                    color: "rgb(0, 0, 255)"
+                },
+                nodeHover: {
+                    texture: "images/node.png",
+                    label: { hideSize: 16 }
+                }
+            }
+        });
+
+
+        nodes = d.nodes;
+        edges = d.edges;
+        graph.set(d.nodes, d.edges, "force");
+        graph.draw();
+
+    }
+
+
+    var current_moving_node = undefined;
+    var current_moving_edges = undefined;
+
+    el.addEventListener('mousedown', function(e) {
+        if (!graph) return;
+
+        var bb = el.getBoundingClientRect();
+
+        var x = e.clientX - bb.left;
+        var y = e.clientY - bb.top;
+        var radius = 5;
+
+        var lCoords = graph.getLayerCoords({ radius: radius, x: x, y: y });
+        var result = graph.find(lCoords.x, lCoords.y, lCoords.radius, true, false);
+
+        if (result.nodes.length > 0) {
+            current_moving_node = result.nodes[0].node;
+
+            //find all asociated edges
+            current_moving_edges = [];
+            for (var i = 0; i < edges.length; i++) {
+                var e = edges[i];
+                if (e.source === current_moving_node || e.target === current_moving_node)
+                    current_moving_edges.push(e);
+            }
+        }
+    });
+
+    function onMove(e) {
+        if (!graph) return;
+
+        var bb = el.getBoundingClientRect();
+
+        var x = e.clientX - bb.left;
+        var y = e.clientY - bb.top;
+        var radius = 5;
+
+        var lCoords = graph.getLayerCoords({ radius: radius, x: x, y: y });
+        var result = graph.find(lCoords.x, lCoords.y, lCoords.radius, true, false);
+
+        //update cursor
+        $("#containerMain").css("cursor", current_moving_node || result.nodes.length > 0 ? "pointer" : 'auto')
+
+
+        //update currently moving element
+        if (current_moving_node === undefined || current_moving_edges === undefined)
+            return;
+        current_moving_node.x = lCoords.x;
+        current_moving_node.y = lCoords.y;
+        graph.updateNode(current_moving_node).updateEdges(current_moving_edges).applyChanges();
+    }
+
+    function onUp(e) {
+        if (!graph) return;
+
+        if (current_moving_node === undefined)
+            return;
+
+        onMove(e);
+        graph.reflow(); //we make all dynamic changes static (performance optimalization)
+        current_moving_node = undefined;
+        current_moving_edges = undefined;
+    }
+
+    el.addEventListener('mousemove', $.throttle(20, onMove));
+    el.addEventListener('mouseup', $.throttle(20, onUp));
+
+    $(init);
+    </script>
+</body>
+
+</html>

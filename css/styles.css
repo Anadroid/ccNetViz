@@ -44,7 +44,8 @@ body {
 .banner {
   position: relative;
   color: white;
-  height: 33.33%;
+  height: 100%;
+  width: 100%;
 }
 /* line 46, ../sass/styles.scss */
 .banner > canvas {
@@ -79,7 +80,7 @@ body {
 }
 /* line 76, ../sass/styles.scss */
 .banner > div.statistics {
-  right: 6px;
+  left: 6px;
   top: 6px;
 }
 /* line 80, ../sass/styles.scss */
@@ -90,8 +91,8 @@ body {
 /* line 85, ../sass/styles.scss */
 .banner > div.statistics dt {
   margin-right: 54px;
-  width: 100px;
-  text-align: right;
+  width: 150px;
+  text-align: left;
 }
 /* line 91, ../sass/styles.scss */
 .banner > div.statistics dd {
