@@ -189,6 +189,8 @@
         graph.set(data.nodes, data.edges, "circular", { "starting_angle": Math.PI / 4 });
         graph.draw();
 
+        console.log(nodes);
+
         $('#nodesCnt').text(data.nodes.length);
         $('#edgesCnt').text(data.edges.length);
         $('#renderedIn').text(Math.round((new Date().getTime() - startTime.getTime()) * 10) / 10);

@@ -11,6 +11,20 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Banner */
 
 .hero-image {
@@ -49,6 +63,20 @@ body {
     background-color: #555;
     color: white;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -102,15 +130,29 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Feature box css*/
 
 .flex-grid-thirds .col {
     width: 32%;
     border-style: solid;
     border-width: 0.5px;
-    margin: 0 70px 0 70px;
+    margin: 0 20px 0 20px;
     text-align: center;
-    box-shadow: 5px 5px 3px #39c;
+    box-shadow: 10px 10px 5px rgb(51, 153, 204, 0.5);
 }
 
 .flex-grid-thirds {
@@ -119,11 +161,85 @@ body {
     margin: 0 200px 0 200px;
 }
 
+.hover:hover {
+    box-shadow: 10px 10px 5px rgb(51, 153, 204, 1);
+    transition: all 0.15s ease-in-out 0s;
+    cursor: pointer;
+    background-color: rgb(51, 153, 204, 0.1);
+    ;
+}
+
+@media (max-width: 600px) {
+    .flex-grid-thirds {
+        display: block;
+        margin: 0 100px 0 100px;
+    }
+    .flex-grid-thirds .col {
+        width: 100%;
+        margin: 0 0 20px 0;
+    }
+
+    .textDiv {
+        display: block !important;
+    }
+
+    .startedEx {
+        margin: 50px 0 100px 0 !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    #aboutP {
+        font-size: 18px !important;
+    }
+    #aboutDiv {
+        margin: 100px 100px !important;
+    }
+
+    #textStarted {
+        font-size: 18px !important;
+    }
+
+    #startedDiv {
+        margin: 100px 100px 50px 100px !important;
+    }
+    .textDiv {
+        display: block !important;
+    }
+}
+
+
+@media (min-width: 600px) and (max-width: 1000px) {
+    .flex-grid-thirds {
+        margin: 0 100px 0 100px;
+    }
+    .flex-grid-thirds .col {
+        width: 40%;
+        margin: 0 0 0 20px;
+    }
+    .featP {
+        font-size: 12px !important;
+        padding: 0 20px 0 20px !important;
+    }
+    h4 {
+        font-size: 18px !important;
+    }
+
+    .startedEx {
+        margin: 50px 100px 100px 100px !important;
+    }
+
+    #exGraphDiv {
+        padding: 0 150px 0 150px;
+    }
+}
+
 h2 {
     font-size: 48px;
-    font-weight: 500;
+    font-weight: 700;
     text-align: center;
     margin: 50px 0 70px 0;
+    color: black;
 }
 
 h4 {
@@ -150,7 +266,9 @@ h5 {
 
 #aboutP {
     font-size: 24px;
+    line-height: 34px;
     text-align: center;
+    color: rgb(87, 88, 110);
 }
 
 .footer {
@@ -189,13 +307,30 @@ h5 {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*Header for documentation page*/
 
 .header {
     overflow: hidden;
     background-color: #E0E0E0;
+    background-size: cover;
+    background-image: url("../images/header.png");
     padding: 50px 10px;
     vertical-align: center;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
 .header a {
@@ -212,7 +347,7 @@ h5 {
     font-size: 18px;
     border: none;
     outline: none;
-    color: black;
+    color: white;
     padding: 0 12px;
     background-color: inherit;
     font-family: inherit;
@@ -240,11 +375,17 @@ h5 {
     float: right;
     margin-right: 30px;
     margin-top: 20px;
+    color: white;
+}
+
+.header-right a {
+    color: white;
 }
 
 #docSpan {
     padding-left: 30px;
     font-size: 48px;
+    color: white;
 }
 
 
@@ -288,6 +429,20 @@ h5 {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Page Layout */
 
 .content {
@@ -310,6 +465,20 @@ h3 {
 .textDiv {
     display: flex;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -341,6 +510,20 @@ h3 {
     display: inline-block;
     padding-right: 50px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -402,6 +585,20 @@ h3 {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Complex example */
 
 #divBody {
@@ -411,6 +608,20 @@ h3 {
 #report {
     line-height: 25px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -429,9 +640,53 @@ pre {
 
 #textStarted {
     font-size: 24px;
+    line-height: 34px;
     text-align: center;
+    color: rgb(87, 88, 110);
 }
 
 .startedEx {
     margin: 50px 150px 100px 150px;
+}
+
+
+
+/* styles table */
+
+#divTable td,
+th {
+    text-align: left;
+}
+
+#divTable input {
+    font-size: 16px;
+    width: 95px;
+}
+
+#divTable h3 {
+    padding-left: 0;
+}
+
+
+#edge_type {
+    font-size: 16px;
+    width: 100px;
+}
+
+.tdStyle {
+    width: 150px;
+}
+
+#showGraph {
+    background-color: #5980EC;
+    height: 36px;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
 }

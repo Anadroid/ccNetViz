@@ -15,12 +15,6 @@
         padding: 30px;
     }
 
-    a,
-    a:visited {
-        text-decoration: none;
-        color: black;
-    }
-
     #down_img a,
     #down_img a:visited {
         text-decoration: none;
@@ -78,14 +72,14 @@
     </div>
     <div class="content">
         <h3>Downloading image example</h3>
-        <div class="textDiv">Press the button below the graph if you want to dowload it as an image.</div>
+        <div style="margin-left: 30px;">Press the button below the graph if you want to dowload it as an image.
+            <br><br>You can see the full code on how this is done <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/save_graph.html">here</a>.</div>
         <div class="textDiv">
             <div id='body'>
                 <canvas id="containerMain"></canvas>
             </div>
             <button id="downBtn" style="margin-left: 30px;"><a id="down_img">Save image</a></button>
         </div>
-        <div style="margin-left: 30px; margin-top: 30px;">You can see the full code on how this is done <a style="text-decoration: underline; font-weight: bold;" href="https://github.com/Anadroid/ccNetViz/blob/master/examples/save_graph.html">here</a>.</div>
     </div>
     <script>
     function init() {
