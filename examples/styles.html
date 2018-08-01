@@ -5,7 +5,6 @@
     <title>ccNetViz example of different styling</title>
     <link rel="stylesheet" type="text/css" href="css/spectrum.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css" />
-    <link rel="stylesheet" type="text/css" href="./css/performance.css" />
     <style type="text/css">
     #containerMain {
         width: 500px;
@@ -15,9 +14,8 @@
     }
 
     #divTable {
-        margin-left: 30px;
-        margin-right: 30px;
-        width: 500px;
+        margin-right: 10px;
+        width: 290px;
     }
 
     #report {
@@ -36,7 +34,7 @@
         background-color: ghostwhite;
         border: 1px solid silver;
         padding: 10px 20px;
-        margin: 20px;
+        width: 400px;
     }
 
     .json-key {
@@ -87,116 +85,121 @@
     </div>
     <div class="content">
         <h3>Styling graph example</h3>
-        <div class="textDiv">Example to show styling options for graph.</div>
-        <br />
+        <p style="margin-left: 30px;">Example to show styling options for graph.</p>
+        <br>
         <div class="textDiv">
-            <div id='body'>
-                <canvas id="containerMain"></canvas>
+            <div class="textDiv" style="padding-left: 0; padding-top: 0;">
+                <div id="divTable">
+                    <table>
+                        <tr>
+                            <th colspan='2'>
+                                <h3 style="margin-top: 0;">Change style:</h3></th>
+                        </tr>
+                        <tr>
+                            <td class="tdStyle">background</td>
+                            <td>
+                                <input id='background_color' value='rgb(255, 255, 255)'></input>
+                            </td>
+                            <!--background color of canvas, default: "rgb(255, 255, 255)"-->
+                        </tr>
+                        <tr>
+                            <th colspan='2'>
+                                <h3>Node</h3></th>
+                        </tr>
+                        <tr>
+                            <td class="tdStyle">minSize</td>
+                            <td>
+                                <input type='number' id='node_minSize' size='2' value='6' min='1'></input>
+                                <!--minimum size of node representation in pixels, default: 6-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>maxSize</td>
+                            <td>
+                                <input type='number' id='node_maxSize' size='2' value='16' min='1'></input>
+                                <!--maximum size of node representation in pixels, default: 16-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>color</td>
+                            <td>
+                                <input id='node_color' value='rgb(255, 0, 0)'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdStyle">label - hideSize</td>
+                            <td>
+                                <input type='number' id='node_label_hideSize' size='2' value='16' min='1'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>label - color</td>
+                            <td>
+                                <input id='node_label_color' value='rgb(120, 120, 120)'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan='2'>
+                                <h3>Edge</h3></th>
+                        </tr>
+                        <tr>
+                            <td>width</td>
+                            <td>
+                                <input type='number' id='edge_width' size='2' value='1' min='1'></input>
+                                <!--edge width in pixels, default: 1-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>color</td>
+                            <td>
+                                <input id='edge_color' value='rgb(204, 204, 204)'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>arrow - minSize </td>
+                            <td>
+                                <input type='number' id='edge_arrow_minSize' size='2' value='6' min='1'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>arrow - maxSize</td>
+                            <td>
+                                <input type='number' id='edge_arrow_maxSize' size='2' value='16' min='1'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>arrow - aspect</td>
+                            <td>
+                                <input type='number' id='edge_arrow_aspect' size='2' value='1' min='1'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>arrow - hideSize</td>
+                            <td>
+                                <input type='number' id='edge_arrow_hideSize' size='2' value='1' min='1'></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>
+                                <select id='edge_type'>
+                                    <option value='line'>line</option>
+                                    <option value='dashed'>dashed</option>
+                                    <option value='dotted'>dotted</option>
+                                    <option value='chain-dotted'>chain-dotted</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                    </table>
+                    <button id='showGraph'>Show graph</button>
+                </div>
             </div>
-            <div id="divTable">
-            <table>
-                <tr>
-                    <td>background - color</td>
-                    <td>
-                        <input id='background_color' value='rgb(255, 255, 255)'></input>
-                    </td>
-                    <!--background color of canvas, default: "rgb(255, 255, 255)"-->
-                </tr>
-                <tr>
-                    <th colspan='2'>
-                        <h3>Node</h3></th>
-                </tr>
-                <tr>
-                    <td>minSize</td>
-                    <td>
-                        <input type='number' id='node_minSize' size='2' value='6' min='1'></input>
-                        <!--minimum size of node representation in pixels, default: 6-->
-                    </td>
-                </tr>
-                <tr>
-                    <td>maxSize</td>
-                    <td>
-                        <input type='number' id='node_maxSize' size='2' value='16' min='1'></input>
-                        <!--maximum size of node representation in pixels, default: 16-->
-                    </td>
-                </tr>
-                <tr>
-                    <td>color</td>
-                    <td>
-                        <input id='node_color' value='rgb(255, 0, 0)'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>label - hideSize</td>
-                    <td>
-                        <input type='number' id='node_label_hideSize' size='2' value='16' min='1'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>label - color</td>
-                    <td>
-                        <input id='node_label_color' value='rgb(120, 120, 120)'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan='2'>
-                        <h3>Edge</h3></th>
-                </tr>
-                <tr>
-                    <td>width</td>
-                    <td>
-                        <input type='number' id='edge_width' size='2' value='1' min='1'></input>
-                        <!--edge width in pixels, default: 1-->
-                    </td>
-                </tr>
-                <tr>
-                    <td>color</td>
-                    <td>
-                        <input id='edge_color' value='rgb(204, 204, 204)'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>arrow - minSize </td>
-                    <td>
-                        <input type='number' id='edge_arrow_minSize' size='2' value='6' min='1'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>arrow - maxSize</td>
-                    <td>
-                        <input type='number' id='edge_arrow_maxSize' size='2' value='16' min='1'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>arrow - aspect</td>
-                    <td>
-                        <input type='number' id='edge_arrow_aspect' size='2' value='1' min='1'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>arrow - hideSize</td>
-                    <td>
-                        <input type='number' id='edge_arrow_hideSize' size='2' value='1' min='1'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>type</td>
-                    <td>
-                        <select id='edge_type'>
-                            <option value='line'>line</option>
-                            <option value='dashed'>dashed</option>
-                            <option value='dotted'>dotted</option>
-                            <option value='chain-dotted'>chain-dotted</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-            </table>
-            <br />
-            <button id='showGraph'>Show graph</button>
-            </div>       
+            <div id='body'>
+                <canvas id="containerMain" style="margin-top: 60px; margin-right: 40px;"></canvas>
+            </div>
             <div id='report'>
-                <h5 style="width: 500px;">Generated configuration object for graph:</h5>
+                <h5 style="width: 500px; margin-top: 5px">Generated configuration object for graph:</h5>
                 <div id='confel'></div>
             </div>
         </div>
@@ -207,7 +210,7 @@
     function init() {
 
         //initialize colorpickers
-        $("#node_color, #background_color, #node_label_color").spectrum({
+        $("#node_color, #background_color, #node_label_color, #edge_color").spectrum({
             preferredFormat: "rgb",
             flat: false,
             showInput: true,

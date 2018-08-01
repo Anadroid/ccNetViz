@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link href="css/styles.css" rel="stylesheet" />
@@ -39,18 +40,18 @@
     </div>
     <h2>Features</h2>
     <div id="featuresDiv" class="flex-grid-thirds">
-        <div class="col">
-            <h4 style="color: #39c">Custom Styling</h4>
+        <div class="col hover" onclick = "window.location.href='examples/styles.html'">
+            <h4 style="color: black">Custom Styling</h4>
             <img class="icon" src="images/style.png">
             <p class="featP">Styling of nodes and edges in css like way</p>
         </div>
-        <div class="col">
-            <h4 style="color: #39c">Layouts</h4>
+        <div class="col hover" onclick = "window.location.href='examples/layouts.html'">
+            <h4 style="color: black">Layouts</h4>
             <img class="icon" src="images/layout.png">
             <p class="featP">In-built support for multiple layouts</p>
         </div>
-        <div class="col">
-            <h4 style="color: #39c">Interactivity</h4>
+        <div class="col hover" onclick = "window.location.href='examples/interactivity_hover.html'">
+            <h4 style="color: black">Interactivity</h4>
             <img class="icon" src="images/cursor.png">
             <p class="featP">Basic interaction for nodes and edges</p>
         </div>
@@ -111,7 +112,7 @@
                 </html>
             </xmp>
         </div>
-        <div>
+        <div id="exGraphDiv">
             <canvas id="container" />
         </div>
     </div>
@@ -125,7 +126,8 @@
         styles: {
             node: { texture: "images/node.png", label: { hideSize: 16 } },
             edge: { arrow: { texture: "images/arrow.png" } }
-        }
+        },
+        onZoom: function(viewport) { return false; }
     });
     var nodes = [
         { label: "Hello" },
@@ -141,6 +143,9 @@
     graph.draw();
 
     var currDiv;
+
+    function test() { return false; }
+    document.getElementById('container').removeEventListener("wheel", test);
 
     function showRefDesc(idNew) {
         var oldDiv = document.getElementById("idOld");
