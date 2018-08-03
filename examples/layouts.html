@@ -59,10 +59,10 @@
         <div class="textDiv">
             <div id='containerMain'>
             </div>
-            <div id='info' style="margin-left: 30px;" /> graph:
-            <select id='listExamples'></select>
-            layout:
-            <select id='listLayouts'></select>
+            <div id='info' style="margin-left: 30px; line-height: 40px;" /> Graph:
+                <select id='listExamples' class="selectStyle" style="margin-left: 4px;"></select>
+            <br> Layout:
+                <select id='listLayouts' class="selectStyle"></select>
             <div id='report'>
                 Nodes: <span id='nodesCnt'></span>
                 <br /> Edges: <span id='edgesCnt'></span>
@@ -73,7 +73,9 @@
     </div>
     </div>
     <script>
-    var examples = 'Bronchiseptica.json,EGFR.json,graph-1000-2.json,graph-10-2.json,line-1000.json,star-10.json,CD4.json,ErbB.json,graph-1000-3.json,graph-10-3.json,line-100.json,T-Cell.json,circle-1000.json,FA-BRCA.json,graph-100-1.json,HGF.json,line-10.json,T-Cell-Receptor.json,circle-100.json,fibroblast.json,graph-100-2.json,IL-1.json,macrophage.json,T-LGL-2011.json,circle-10.json,Glucose.json,graph-100-3.json,IL-6.json,star-1000.json,T-LGL.json,drosophila.json,graph-1000-1.json,graph-10-1.json,Influenza.json,star-100.json,Yeast-Apoptosis.json,tree1.json,tree2.json'.split(',');
+    var examples = 'Bronchiseptica.json,EGFR.json,graph-1000-2.json,graph-10-2.json,line-1000.json,star-10.json,CD4.json,ErbB.json,graph-1000-3.json,graph-10-3.json,line-100.json,T-Cell.json,circle-1000.json,FA-BRCA.json,graph-100-1.json,HGF.json,line-10.json,T-Cell-Receptor.json,circle-100.json,fibroblast.json,graph-100-2.json,IL-1.json,macrophage.json,T-LGL-2011.json,circle-10.json,Glucose.json,graph-100-3.json,IL-6.json,star-1000.json,T-LGL.json,drosophila.json,graph-1000-1.json,graph-10-1.json,Influenza.json,star-100.json,Yeast-Apoptosis.json,tree1.json,tree2.json'.split(','); 
+
+    var adata;
 
     function init() {
         function onChange(e) {
@@ -84,7 +86,8 @@
 
         function onChange2(e) {
             layout = $(this).val();
-            showGraph(adata);
+            if (adata != null)
+                showGraph(adata);
         }
 
         //fill in graph names

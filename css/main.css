@@ -25,6 +25,7 @@ body {
 
 
 
+
 /* Banner */
 
 .hero-image {
@@ -87,6 +88,7 @@ body {
 
 
 
+
 /* Menu */
 
 .topnav {
@@ -125,6 +127,7 @@ body {
 #featuresDiv {
     margin-bottom: 100px;
 }
+
 
 
 
@@ -321,6 +324,7 @@ h5 {
 
 
 
+
 /*Header for documentation page*/
 
 .header {
@@ -443,6 +447,7 @@ h5 {
 
 
 
+
 /* Page Layout */
 
 .content {
@@ -465,6 +470,7 @@ h3 {
 .textDiv {
     display: flex;
 }
+
 
 
 
@@ -510,6 +516,7 @@ h3 {
     display: inline-block;
     padding-right: 50px;
 }
+
 
 
 
@@ -599,15 +606,13 @@ h3 {
 
 
 
+
 /* Complex example */
 
 #divBody {
     margin-left: 50px;
 }
 
-#report {
-    line-height: 25px;
-}
 
 
 
@@ -651,6 +656,7 @@ pre {
 
 
 
+
 /* styles table */
 
 #divTable td,
@@ -689,4 +695,49 @@ th {
     font-size: 16px;
     margin: 10px 2px;
     cursor: pointer;
+}
+
+
+
+
+
+
+
+
+/*Drop down menu*/
+
+.selectStyle {
+    position: relative;
+    background-color: #6495ED;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 0px 16px;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+    width: 200px;
+    height: 30px;
+    -webkit-appearance: none;
+    border-radius: 0;
+    background-image: url(../images/drop-down-arrow.png) !important;
+    background-repeat: no-repeat;
+    background-position: 175px center;
+    padding-left: 10px;
+}
+
+.selectStyle:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+
+.pStyle {
+    display: block;
+    width: 50px;
+    margin: 0;
 }
