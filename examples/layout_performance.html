@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="./css/performance.css" />
     <title>Layouts perfomance tests</title>
     <script src="./libs/jquery.min.js"></script>
-    <script src="../dist/ccNetViz.js"></script>
+    <script src="./js/ccNetViz.js"></script>
     <script src="./libs/cytoscape.js"></script>
     <script src="./libs/sigma.js"></script>
     <script src="./libs/sigma.parsers.json.min.js"></script>
@@ -20,7 +20,7 @@
         <br>
     </div>
     <span style="margin-left: 30px; margin-bottom: 10px;">Choose graph:<br><br> </span>
-    <div class="custom-select" style="width:200px;">
+    <div class="custom-select" style="width:200px; margin-bottom: 30px;">
         <select id="selectID">
             <option value="0">graph-100-3</option>
             <option value="1">graph-100-1</option>
@@ -87,7 +87,7 @@
                 </tr>
             </table>
             <br>
-            <span style="font-size: 14px;  margin-left: 30px;">*There are no predifined layouts for SigmaJS, ccNetViz functions were used to calculate the positions of nodes/edges</span>
+            <span style="font-size: 14px;  margin-left: 30px;">*There are no predifined layouts for SigmaJS - ccNetViz functions were used to calculate the positions of nodes/edges</span>
         </div>
     </div>
             <div id="divGraphViz" class="divGraph">

@@ -115,6 +115,7 @@ td:nth-child(7n+1) {
 #tableFeature {
     margin-left: 30px;
     margin-right: 30px;
+    margin-bottom: 100px;
     width: auto;
 }
 
@@ -148,6 +149,7 @@ td:nth-child(7n+1) {
 
 #divGraphViz {
     margin-left: 200px;
+    margin-bottom: 30px;
 }  
 
 /*style the arrow inside the select element:*/
@@ -212,4 +214,5 @@ td:nth-child(7n+1) {
 
 #divMainViz {
     display: flex;
+    margin-bottom: 30px;
 }
