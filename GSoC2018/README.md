@@ -13,13 +13,13 @@ Added examples for context menu and image download, and implemented the performa
 
 Status: merged
 
-[Code added](https://github.com/HelikarLab/ccNetViz/pull/18)
+* [Code added](https://github.com/HelikarLab/ccNetViz/pull/18)
 
-[Benchmark page](https://anadroid.github.io/ccNetViz/examples/layout_performance.html)
+* [Benchmark page](https://anadroid.github.io/ccNetViz/examples/layout_performance.html)
 
-[Context menu example page](https://anadroid.github.io/ccNetViz/examples/context_menu.html)
+* [Context menu example page](https://anadroid.github.io/ccNetViz/examples/context_menu.html)
 
-[Image download example page](https://anadroid.github.io/ccNetViz/examples/save_graph.html)
+* [Image download example page](https://anadroid.github.io/ccNetViz/examples/save_graph.html)
 
 
 **GSoC Phase 2 and 3**
@@ -36,5 +36,5 @@ Status: not merged
 	https://github.com/Anadroid/ccNetViz/commit/3da7c6279cba08d39afdf341374e201b90fb1678
 	https://github.com/Anadroid/ccNetViz/commit/3949a2e33f7eaa62ab7ab98f94d346650a7bcc65
 	https://github.com/Anadroid/ccNetViz/commit/4f1661ab1bce40c862210250ea6076a7226c609e
-	
+
 * [Webpage](https://anadroid.github.io/ccNetViz/)
