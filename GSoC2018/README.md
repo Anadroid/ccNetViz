@@ -17,10 +17,6 @@ Status: merged
 
 * [Benchmark page](https://anadroid.github.io/ccNetViz/examples/layout_performance.html)
 
-* [Context menu example page](https://anadroid.github.io/ccNetViz/examples/context_menu.html)
-
-* [Image download example page](https://anadroid.github.io/ccNetViz/examples/save_graph.html)
-
 
 **GSoC Phase 2 and 3**
 
