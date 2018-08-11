@@ -126,8 +126,7 @@
         styles: {
             node: { texture: "images/node.png", label: { hideSize: 16 } },
             edge: { arrow: { texture: "images/arrow.png" } }
-        },
-        onZoom: function(viewport) { return false; }
+        }
     });
     var nodes = [
         { label: "Hello" },
@@ -142,18 +141,6 @@
     graph.set(nodes, edges, "force");
     graph.draw();
 
-    var currDiv;
-
-    function test() { return false; }
-    document.getElementById('container').removeEventListener("wheel", test);
-
-    function showRefDesc(idNew) {
-        var oldDiv = document.getElementById("idOld");
-        var newDiv = document.getElementById("idNew");
-        currDiv.style.display = "none";
-        newDiv.style.display = "block";
-        currDiv = newDiv;
-    }
     </script>
 </body>
 

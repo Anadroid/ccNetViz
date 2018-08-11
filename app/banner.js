@@ -165,10 +165,7 @@ var Banner = React.createClass({displayName: "Banner",
                     rDL("Number of Nodes", this.state.numNodes), 
                     rDL("Number of Edges", this.state.numEdges), 
                     rDL("Rendering Time", (this.state.rTime || 0).toFixed(1) + "ms")
-                ), 
-                React.createElement("div", {className: "help"}, 
-                    React.createElement("i", null, "Use mouse to pan and zoom in the graph.")
-                ), 
+                ),
                 React.createElement(Graph, {ref: "graph", styles: this.styles, parentWidth: this.props.parentWidth, parentHeight: this.props.parentHeight})
             )
         );
